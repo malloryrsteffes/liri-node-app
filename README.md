@@ -3,7 +3,7 @@
 LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
 
 
-### How It Works 
+## How It Works 
 
 Liri searches Spotify for songs, Band in Town for concerts, and OMDB for movies. It does this by sending requests using the 'axios' package to the Bands in Town, Spotify, and OMDB APIs. 
 
@@ -81,7 +81,7 @@ Structure of a LIRI call:
 node liri.js <parameter> <userInput>
 ```
 
-The program then uses a **switch statement** to determine the action it is taking. Here, `process.arv[2]` is equal to the parameter set by the user in their node call.
+The program then uses a **switch statement** to determine the action it is taking. Here, `process.argv[2]` is equal to the parameter set by the user in their node call.
 
 ```js
 var action = process.argv[2];
