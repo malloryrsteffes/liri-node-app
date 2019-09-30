@@ -111,26 +111,22 @@ switch (action) {
 ```
 Each action prompts a function that makes a call to either the OMDB, Spotify, or BandsInTown APIs. An example:
 ```js
-function concertThis(){
+for (i = 0; i < eventsFetched.length; i++){
+            
+            // Creates an object we can later append to the log file
+            var eventsFetchedObject = [
+                "Venue: " + eventsFetched[i].venue.name,
+                "Location: " + eventsFetched[i].venue.city + ", " + eventsFetched[i].venue.region,
+                "Date: " + moment(eventsFetched[i].datetime).format('MM/DD/YYYY'),
+            ].join("\n\n");
 
-    var queryURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
-    console.log(queryURL)
-
-    // Run a request with Axios to the OMDV API with the movie specified
-    axios.get(queryURL).then(
-    function(response) {
-
-        var eventsFetched = response.data;
-
-        for (i = 0; i < eventsFetched.length; i++){
-            console.log("------------------------------------")
-            console.log("Venue: " + eventsFetched[i].venue.name);
-            console.log("Location: " + eventsFetched[i].venue.city + ", " + eventsFetched[i].venue.region);
-            console.log(moment(eventsFetched[i].datetime).format('hh:mm a'));
+            // Appends the object to the log file 
+            fs.appendFile("log.txt", eventsFetchedObject + divider, function(err) {
+                if (err) throw err;
+                console.log(eventsFetchedObject);
+              });
+        
         }
-        console.log("------------------------------------")
-    })
-}
 ```
 (The `concert-this` call utilizes `moment.js` to format event times in a pretty way.)
 
