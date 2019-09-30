@@ -34,6 +34,9 @@ var userInput = "";
         }
     }
 
+// Divider for cleanliness
+var divider = "\n------------------------------------------------------------\n\n";
+
 // Switch-Case Statement to direct which function runs
 var action = process.argv[2];
 
@@ -62,26 +65,32 @@ function movieThis(input){
     if (input === "") {
         input = "Mr. " + "Nobody";
         
-    }// This is what I'm trying - it isn't working! 
+    }
 
     var queryURL = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy"
 
-    // Run a request with Axios to the OMDV API with the movie specified
+    // Run a request with Axios to the OMDB API with the movie specified
     axios.get(queryURL).then(
     function(response) {
-        // console.log(response.data);
-        // console.log("================================");
-        console.log("------------------------------------------------------------------------------------------")
-        console.log("Title: " + response.data.Title);
-        console.log("Released: " + response.data.Year);
-        console.log("Rating: " + response.data.Rated);
-        console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1]["Value"]);
-        console.log("Produced in: " + response.data.Country);
-        console.log("Available In: " + response.data.Language);
-        console.log("Plot: " + response.data.Plot);
-        console.log("Actors: " + response.data.Actors);
-        console.log("------------------------------------------------------------------------------------------")
+        console.log(input);
+        var movieData = response.data;
+        // Save data in an object so we can easily append it with appendFile
+        var movieDataObject = [
+            "Title: " + movieData.Title,
+            "Released: " + movieData.Year,
+            "Rating: " + movieData.Rated,
+            "Rotten Tomatoes Rating: " + response.data.Ratings[1]["Value"],
+            "Produced In: " + movieData.Country,
+            "Available In: " + movieData.Language,
+            "Plot: " + movieData.Plot,
+            "Actors: " + movieData.Actors,
+        ].join("\n\n");
 
+        // Appends the user's search to the log
+        fs.appendFile("log.txt", movieDataObject + divider, function(err) {
+            if (err) throw err;
+            console.log(movieDataObject);
+          });
 
     })
     .catch(function(error) {
@@ -112,19 +121,29 @@ function concertThis(){
     var queryURL = "https://rest.bandsintown.com/artists/" + userInput + "/events?app_id=codingbootcamp"
     console.log(queryURL)
 
-    // Run a request with Axios to the OMDV API with the movie specified
+    // Run a request with Axios to the BiT API with the artist specified
     axios.get(queryURL).then(
     function(response) {
 
         var eventsFetched = response.data;
-
+        
+        // Loops through the events fetched to create event objects
         for (i = 0; i < eventsFetched.length; i++){
-            console.log("------------------------------------")
-            console.log("Venue: " + eventsFetched[i].venue.name);
-            console.log("Location: " + eventsFetched[i].venue.city + ", " + eventsFetched[i].venue.region);
-            console.log(moment(eventsFetched[i].datetime).format('hh:mm a'));
+            
+            // Creates an object we can append later
+            var eventsFetchedObject = [
+                "Venue: " + eventsFetched[i].venue.name,
+                "Location: " + eventsFetched[i].venue.city + ", " + eventsFetched[i].venue.region,
+                "Date: " + moment(eventsFetched[i].datetime).format('MM/DD/YYYY'),
+            ].join("\n\n");
+
+            // Appends the user call to the log page 
+            fs.appendFile("log.txt", eventsFetchedObject + divider, function(err) {
+                if (err) throw err;
+                console.log(eventsFetchedObject);
+              });
+        
         }
-        console.log("------------------------------------")
     })
     .catch(function(error) {
         if (error.response) {
@@ -152,21 +171,29 @@ function concertThis(){
 // SPOTIFY THIS FUNCTION --------------------------------------------------------------
 function spotifyThis(input){
 
+    // Default search if user doesn't specify a song 
     if (input === ""){
         input = "The " + "Sign";
-    } // This is what I'm trying - it isn't working!
+    }
 
     spotify
     .search({ type: 'track', query: input, limit: 1 })
     .then(function(response) {
 
-        var items = response.tracks.items;
-        console.log("------------------------------------------------------------------------------------------")
-        console.log("Artist: " + items[0].artists[0].name); 
-        console.log("Song Title: " + items[0].name);
-        console.log("Spotify Preview: " + items[0].preview_url);
-        console.log("Album: " + items[0].album.name);
-        console.log("------------------------------------------------------------------------------------------")
+        var songData = response.tracks.items;
+
+        var songDataObject = [
+            "Artist: " + songData[0].artists[0].name,
+            "Song Title: " + songData[0].name,
+            "Spotify Preview: " + songData[0].preview_url,
+            "Album: " + songData[0].album.name
+        ].join("\n\n");
+
+        fs.appendFile("log.txt", songDataObject + divider, function(err) {
+            if (err) throw err;
+            console.log(songDataObject);
+          });
+
     })
 
     .catch(function(err) {

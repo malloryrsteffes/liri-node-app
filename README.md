@@ -128,9 +128,9 @@ function concertThis(){
     })
 }
 ```
-(This, the `concert-this` call, utilizes `moment.js` to format event times in a pretty way.)
+(The `concert-this` call utilizes `moment.js` to format event times in a pretty way.)
 
-The "function -> call" method LIRI uses is different the final case, which calls the Spotify API after reading the text in  the random.txt file).
+The "function -> call" method LIRI uses is different the final case, which calls the Spotify API after reading the text in the random.txt file).
 
 ```js
 function doWhatItSays(){
@@ -149,8 +149,18 @@ function doWhatItSays(){
 }
 ```
 
-The response to each call is logged onto the console. If there is an error in the call, it will log as an error.
+The response to each call is logged onto the console, and appended to a log text file. If there is an error in the call, it will log as an error.
 
+# LIRI in action
+
+![Movie-This Example](https://media.giphy.com/media/QyPe9NBNXVQ1lgvedf/giphy.gif)
+
+![Spotify-This Example](https://media.giphy.com/media/KCvpDWsoV3rFn3C3nz/giphy.gif)
+
+![Concert-This Example](https://media.giphy.com/media/M9fNG2ZSDcUyJD01cR/giphy.gif)
+
+![Do-What-It-Says Example](https://media.giphy.com/media/gLcEH9BNhzKU5T2ECi/giphy.gif)
+)
 
 ### Default searches
 
