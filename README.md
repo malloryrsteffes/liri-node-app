@@ -109,7 +109,9 @@ switch (action) {
     }
 
 ```
-Each action prompts a function that makes a call to either the OMDB, Spotify, or BandsInTown APIs. An example:
+Each action prompts a function that makes a call to either the OMDB, Spotify, or BandsInTown APIs. The response to each call is logged onto the console, and appended to a log text file. If there is an error in the call, it will log as an error.
+
+An example:
 ```js
 for (i = 0; i < eventsFetched.length; i++){
             
@@ -148,8 +150,6 @@ function doWhatItSays(){
     })
 }
 ```
-
-The response to each call is logged onto the console, and appended to a log text file. If there is an error in the call, it will log as an error.
 
 # More LIRI in action
 
