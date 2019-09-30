@@ -81,6 +81,10 @@ Structure of a LIRI call:
 node liri.js <parameter> <userInput>
 ```
 
+Typing out a call would look like this:
+
+![Movie-This Example](https://media.giphy.com/media/QyPe9NBNXVQ1lgvedf/giphy.gif)
+
 The program then uses a **switch statement** to determine the action it is taking. Here, `process.argv[2]` is equal to the parameter set by the user in their node call.
 
 ```js
@@ -151,9 +155,7 @@ function doWhatItSays(){
 
 The response to each call is logged onto the console, and appended to a log text file. If there is an error in the call, it will log as an error.
 
-# LIRI in action
-
-![Movie-This Example](https://media.giphy.com/media/QyPe9NBNXVQ1lgvedf/giphy.gif)
+# More LIRI in action
 
 ![Spotify-This Example](https://media.giphy.com/media/KCvpDWsoV3rFn3C3nz/giphy.gif)
 
